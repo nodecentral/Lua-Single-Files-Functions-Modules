@@ -1,6 +1,5 @@
-module("xxionos", package.seeall)
+module("email", package.seeall)
 
--- Michal Kottman, 2011, public domain
 local socket = require 'socket'
 local smtp = require 'socket.smtp'
 local ssl = require 'ssl'
@@ -28,7 +27,7 @@ end
 function sendMessage(subject, body)
     local msg = {
         headers = {
-            to = 'Your Target <chris_parker_uk@hotmail.co.uk>',
+            to = 'Your Target <node.central@email.co.uk>',
             subject = subject
         },
         body = body
@@ -36,11 +35,11 @@ function sendMessage(subject, body)
 
     -- finally send it
     local ok, err = smtp.send {
-        from = '<chris.parker@nodecentral.co.uk>',
-        rcpt = '<chris_parker_uk@hotmail.co.uk>',
+        from = '<node.central@email.co.uk>',
+        rcpt = '<central_node@email.co.uk>',
         source = smtp.message(msg),
-        user = 'chris.parker@nodecentral.co.uk',
-        password = 'ipswicht',
+        user = 'node.central@email.co.uk',
+        password = 'password',
         server = 'smtp.ionos.co.uk',
         port = 465,
         create = sslCreate
@@ -49,5 +48,3 @@ function sendMessage(subject, body)
         print("Mail send failed", err) -- better error handling required
     end
 end
-
--- sendMessage("VeraPlus (Test Email) Restart Notification", "Hi, \n\nThis is the email body.\n\nMore information will be added later.\n\nKind Regards\nVera Home Control")
